@@ -1,0 +1,76 @@
+$primary: #1c6ea4;
+$dark: #102a43;
+
+$body-bg: #f4f6f8;
+$body-color: #1f2d3d;
+
+@import "~bootstrap/scss/bootstrap";
+
+body {
+    -webkit-font-smoothing: antialiased;
+}
+
+// Barre de navigation
+.navbar-brand img {
+    display: block;
+}
+
+// Titres de page
+h1 {
+    color: $dark;
+    font-weight: 600;
+    font-size: 1.6rem;
+}
+
+// Tableau présenté comme une carte légère
+.table {
+    background: #fff;
+    border-radius: .5rem;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(16, 42, 67, .08);
+
+    > thead th {
+        background: #fff;
+        color: #62748b;
+        text-transform: uppercase;
+        font-size: .72rem;
+        letter-spacing: .03em;
+        border-bottom: 2px solid #eef1f4;
+    }
+
+    > tbody td {
+        vertical-align: middle;
+    }
+
+    // Lignes cliquables (ouverture de l'ordre)
+    tbody tr.ro-row {
+        cursor: pointer;
+    }
+}
+
+// Cartes (détail d'un ordre)
+.card {
+    border: 0;
+    border-radius: .5rem;
+    box-shadow: 0 1px 3px rgba(16, 42, 67, .08);
+
+    .card-header {
+        background: #fff;
+        border-bottom: 1px solid #eef1f4;
+    }
+}
+
+// Badges de statut
+.status-badge {
+    font-size: .75rem;
+    padding: .25rem .6rem;
+    border-radius: 999px;
+    font-weight: 600;
+}
+
+.status-PENDING       { background: #e9ecef; color: #495057; }
+.status-IN_PROGRESS   { background: #cff4fc; color: #055160; }
+.status-WAITING_PARTS { background: #fff3cd; color: #664d03; }
+.status-DONE          { background: #d1e7dd; color: #0a3622; }
+.status-DELIVERED     { background: $primary;  color: #fff; }
+.status-CANCELLED     { background: #f8d7da; color: #58151c; }

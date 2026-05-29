@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+
+  db:
+    restart: unless-stopped
+    image: postgres:16
+    environment:
+      POSTGRES_DB: main
+      POSTGRES_PASSWORD: main
+      POSTGRES_USER: main
+    ports:
+      - "127.0.0.1:5433:5432"
+    volumes:
+      - pgdata_test:/var/lib/postgresql/data
+
+  php-rc-test:
+    restart: unless-stopped
+    build:
+      context: docker/base
+      dockerfile: Dockerfile-php
+      args:
+        ENVIRONNEMENT: local
+    env_file:
+      - .env.local
+    volumes:
+      - ./:/var/www/symfony:cached
+    depends_on:
+      - db
+
+  nginx-rc-test:
+    restart: unless-stopped
+    build:
+      context: docker/base
+      dockerfile: Dockerfile-nginx
+      args:
+        ENVIRONNEMENT: local
+    depends_on:
+      - php-rc-test
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www/symfony:cached
+
+volumes:
+  pgdata_test:
+    driver: local

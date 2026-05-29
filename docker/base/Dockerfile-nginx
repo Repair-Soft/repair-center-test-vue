@@ -1,0 +1,26 @@
+FROM nginx:stable-alpine3.17-slim
+
+ARG ENVIRONNEMENT
+ENV ENVIRONNEMENT=${ENVIRONNEMENT}
+
+RUN mkdir -p /etc/nginx/templates \
+    && mkdir -p /tmp/nginx
+
+RUN apk update && apk add openssl
+RUN mkdir -p /etc/nginx/ssl/
+RUN openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 \
+    -subj "/C=FR/ST=IDF/L=Paris/O=RepairCenter/OU=Test/CN=rc-test.docker.localhost" \
+    -keyout /etc/nginx/ssl/server.key -out /etc/nginx/ssl/server.crt
+
+COPY $ENVIRONNEMENT/nginx/nginx.conf /etc/nginx/
+COPY $ENVIRONNEMENT/nginx/templates/ /etc/nginx/templates/
+RUN rm /etc/nginx/conf.d/default.conf
+RUN rm -fR /tmp/nginx
+
+RUN mkdir -p /var/www/symfony/public/
+WORKDIR /var/www/symfony/public/
+
+EXPOSE 80
+EXPOSE 443
+
+CMD ["nginx", "-g", "daemon off;"]

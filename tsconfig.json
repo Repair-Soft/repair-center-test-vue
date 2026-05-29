@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "jsx": "preserve",
+    "lib": ["ES2020", "DOM"],
+    "skipLibCheck": true,
+    "types": [],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["assets/js/vue/*"]
+    }
+  },
+  "include": [
+    "assets/**/*.ts",
+    "assets/**/*.vue"
+  ]
+}
